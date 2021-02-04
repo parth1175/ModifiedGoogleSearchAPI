@@ -429,8 +429,9 @@ def _get_search_url(query, page=0, per_page=10, lang='en', area='com', ncr=False
 
 
 def get_html(url):
-    ua = UserAgent()
-    header = ua.random
+    # ua = UserAgent()
+    # header = ua.random
+    header = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2762.73 Safari/537.36"
 
     try:
         request = urllib.request.Request(url)

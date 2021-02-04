@@ -72,7 +72,9 @@ def search(query, pages=1, lang='en', area='com', ncr=False, void=True, time_per
 
         if html:
             soup = BeautifulSoup(html, "html.parser")
-            divs = soup.findAll("div", attrs={"class": "g"})
+            divs = soup.find_all("div", attrs={"class": "g"})
+            #divs = soup.findAll("div", attrs={"class": "g"})
+
 
             results_div = soup.find("div", attrs={"id": "resultStats"})
             number_of_results = _get_number_of_results(results_div)
