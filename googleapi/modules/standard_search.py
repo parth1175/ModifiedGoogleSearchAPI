@@ -11,7 +11,7 @@ import urllib.parse
 from urllib.parse import unquote, parse_qs, urlparse
 from unidecode import unidecode
 from re import match, findall
-
+counter = 1
 
 class GoogleResult(object):
 
@@ -66,16 +66,24 @@ def search(query, pages=1, lang='en', area='com', ncr=False, void=True, time_per
         A GoogleResult object."""
 
     results = []
+    global counter 
     for i in range(first_page, first_page + pages):
         url = _get_search_url(query, i, lang=lang, area=area, ncr=ncr, time_period=time_period, sort_by_date=sort_by_date)
-        html = get_html(url)
+        #!!! Added counter
+        html = get_html(url, counter)
+        file_name = "../testing%d.html"%(counter)
+        # obj = open(file_name,"wb+")
+        # print("Writing to file here .............................................................", flush=True)
+        # obj.write(html)
+        # obj.close()
 
         if html:
             soup = BeautifulSoup(html, "html.parser")
             divs = soup.find_all("div", attrs={"class": "g"})
+            print("\nthis are the divs for %d:    \n"%(counter),flush=True)
+            print(divs[0:10],flush=True)
             #divs = soup.findAll("div", attrs={"class": "g"})
-
-
+            
             results_div = soup.find("div", attrs={"id": "resultStats"})
             number_of_results = _get_number_of_results(results_div)
 
@@ -106,9 +114,13 @@ def search(query, pages=1, lang='en', area='com', ncr=False, void=True, time_per
             # the google result didn't go through
 
     if not results:
+        print("The results %d were empty............................................." %(counter), flush=True)
+        print("this is results \n\n",flush=True)
+        print(results)
         #the list is empty and no results yeilded
         results = ["empty"]
 ####################################################
+    counter = counter + 1
     return results
 
 

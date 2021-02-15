@@ -8,6 +8,7 @@ from builtins import range
 from past.utils import old_div
 import time
 from selenium import webdriver
+import random
 import urllib.request
 import urllib.error
 import urllib.parse
@@ -16,7 +17,6 @@ from functools import wraps
 from urllib.parse import urlencode
 from fake_useragent import UserAgent
 import sys
-
 class AreaError(KeyError):
     pass
 
@@ -426,12 +426,23 @@ def _get_search_url(query, page=0, per_page=10, lang='en', area='com', ncr=False
             raise AreaError('invalid  name,  no area found')
         url += params
     return url
-
-
-def get_html(url):
+#!!! Added counter
+def get_html(url, counter_agents = 0):
     # ua = UserAgent()
     # header = ua.random
-    header = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2762.73 Safari/537.36"
+    # print(f"UserAgent for {url} is: {header}")
+    user_agents = ["Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2866.71 Safari/537.36", 
+    "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:77.0) Gecko/20100101 Firefox/77.0",
+    "Mozilla/5.0 (X11; OpenBSD i386; rv:72.0) Gecko/20100101 Firefox/72.0",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2762.73 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 6.3; WOW64; rv:71.0) Gecko/20100101 Firefox/71.0"] 
+    header = user_agents[counter_agents % 5]
+    # counter_agents = counter_agents + 1
+    # header = "Mozilla/5.0 (Windows NT 6.3; WOW64; rv:71.0) Gecko/20100101 Firefox/71.0"
+    # header = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2866.71 Safari/537.36" #verified
+    # header = "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:77.0) Gecko/20100101 Firefox/77.0" #verified
+    # header = "Mozilla/5.0 (X11; OpenBSD i386; rv:72.0) Gecko/20100101 Firefox/72.0" #verified
+    # header = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2762.73 Safari/537.36" #verified
 
     try:
         request = urllib.request.Request(url)
