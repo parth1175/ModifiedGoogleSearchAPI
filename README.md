@@ -2,6 +2,9 @@
 Google Search API
 =====
 
+IMPORTANT this is a modified version of the original GoogleSearchAPI for usage for the "NewsChord" Project
+
+
 [![Coverage Status](https://coveralls.io/repos/abenassi/Google-Search-API/badge.svg?branch=master)](https://coveralls.io/r/abenassi/Google-Search-API?branch=master)
 [![Build Status](https://travis-ci.org/abenassi/Google-Search-API.svg?branch=master)](https://travis-ci.org/abenassi/Google-Search-API)
 [![](https://img.shields.io/pypi/v/Google-Search-API.svg)](https://pypi.python.org/pypi/Google-Search-API)
